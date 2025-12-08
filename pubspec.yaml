@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.4.7
+  http: ^1.6.0
 
 flutter_native_splash:
   android: true
