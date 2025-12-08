@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'pages/overview.dart';
+import 'pages/records.dart';
+import 'pages/new_entry.dart';
 import 'includes/app_bar.dart';
 import 'includes/nav_bar.dart';
+import 'includes/globals.dart';
 
 void main() {
   runApp(const MainApp());
@@ -15,23 +18,48 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = const [
+    OverviewPage(),
+    RecordsPage(),
+    NewEntryPage(),
+  ];
+
+  final List<String> _titles = const [
+    'Home',
+    'All Landmarks',
+    'Edit Landmarks',
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'LandmarkGO',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orangeAccent),
-      ),
-      home: homeOverview(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: isDarkTheme,
+      builder: (context, isDark, _) {
+        return MaterialApp(
+          title: 'LandmarkGO',
+          debugShowCheckedModeBanner: false,
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+          home: Scaffold(
+            appBar: TitleAppBar(
+              title: _titles[_currentIndex],
+              onToggleTheme: _toggleTheme,
+            ),
+            bottomNavigationBar: NavBar(
+              currentIndex: _currentIndex,
+              onTap: (index) => setState(() => _currentIndex = index),
+            ),
+            body: _pages[_currentIndex],
+          ),
+        );
+      },
     );
   }
 
-  Scaffold homeOverview() {
-    return Scaffold(
-      appBar: TitleAppBar(title: 'Home'),
-      bottomNavigationBar: NavBar(currentIndex: 0, onTap: (index) {}),
-      body: Center(child: Text('Hello World!')),
-    );
+  void _toggleTheme() {
+    isDarkTheme.value = !isDarkTheme.value;
   }
 }

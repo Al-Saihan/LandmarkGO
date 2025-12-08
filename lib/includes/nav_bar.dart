@@ -17,8 +17,8 @@ class NavBar extends StatelessWidget {
       showSelectedLabels: true,
       showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: colorSelectedItem, // dark brown
-      unselectedItemColor: colorUnselectedItem, // brown with opacity
+      selectedItemColor: colorSelectedItem, 
+      unselectedItemColor: colorUnselectedItem, 
       items: [
         BottomNavigationBarItem(
           label: "Overview",
@@ -40,7 +40,7 @@ class NavBar extends StatelessWidget {
   }
 }
 
-/// Custom icon with rounded background for selected state
+// ! Selected Item Background Color Workaround
 class _NavIcon extends StatelessWidget {
   final IconData icon;
   final bool isSelected;

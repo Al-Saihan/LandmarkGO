@@ -3,8 +3,9 @@ import 'globals.dart';
 
 class TitleAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final VoidCallback onToggleTheme;
 
-  const TitleAppBar({super.key, required this.title});
+  const TitleAppBar({super.key, required this.title, required this.onToggleTheme});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +19,11 @@ class TitleAppBar extends StatelessWidget implements PreferredSizeWidget {
       iconTheme: IconThemeData(color: Colors.white),
       actions: [
         IconButton(
-          icon: Icon(Icons.brightness_5, color: colorSelectedItem,),
-          onPressed: () {
-            // Add theme switching logic here
-          },
+          icon: Icon(
+            isDarkTheme.value ? Icons.dark_mode : Icons.wb_sunny,
+            color: colorSelectedItem,
+          ),
+          onPressed: onToggleTheme,
         ),
       ],
     );
