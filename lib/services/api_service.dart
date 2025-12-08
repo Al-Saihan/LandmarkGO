@@ -1,22 +1,24 @@
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import '../models/landmark.dart';
 import 'dart:convert';
 
 class ApiService {
   static const String baseUrl = 'https://labs.anontech.info/cse489/t3/api.php';
+  static const String imageBaseUrl = 'https://labs.anontech.info/cse489/t3/';
 
   // ! GET: Retrieve all landmarks
   // ! Returns a list of Landmark objects
   static Future<List<Landmark>> getAllLandmarks() async {
     try {
       final response = await http.get(
-        Uri.parse('$baseUrl/landmarks'),
+        Uri.parse(baseUrl),
       );
 
       if (response.statusCode == 200) {
         // ? Decode JSON response and convert to List<Landmark>
         final List<dynamic> jsonList = _parseJsonResponse(response.body);
-        return jsonList.map((json) => Landmark.fromJson(json)).toList();
+        return jsonList.map((json) => Landmark.fromJson(json as Map<String, dynamic>, imageBaseUrl)).toList();
       } else {
         throw Exception('Failed to load landmarks: ${response.statusCode}');
       }
@@ -35,7 +37,7 @@ class ApiService {
   }) async {
     try {
       final response = await http.post(
-        Uri.parse('$baseUrl/landmarks'),
+        Uri.parse(baseUrl),
         headers: {'Content-Type': 'application/json'},
         body: _encodeJsonBody({
           'title': title,
@@ -47,7 +49,7 @@ class ApiService {
 
       if (response.statusCode == 201 || response.statusCode == 200) {
         final jsonResponse = _parseJsonResponse(response.body);
-        return Landmark.fromJson(jsonResponse);
+        return Landmark.fromJson(jsonResponse as Map<String, dynamic>, imageBaseUrl);
       } else {
         throw Exception('Failed to create landmark: ${response.statusCode}');
       }
@@ -67,7 +69,7 @@ class ApiService {
   }) async {
     try {
       final response = await http.put(
-        Uri.parse('$baseUrl/landmarks/$id'),
+        Uri.parse('$baseUrl/$id'),
         headers: {'Content-Type': 'application/json'},
         body: _encodeJsonBody({
           'id': id,
@@ -80,7 +82,7 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final jsonResponse = _parseJsonResponse(response.body);
-        return Landmark.fromJson(jsonResponse);
+        return Landmark.fromJson(jsonResponse as Map<String, dynamic>, imageBaseUrl);
       } else {
         throw Exception('Failed to update landmark: ${response.statusCode}');
       }
@@ -92,9 +94,10 @@ class ApiService {
   // ! DELETE: Remove a landmark by ID
   // ! Returns true if deletion was successful
   static Future<bool> deleteLandmark(int id) async {
+    debugPrint('Deleting landmark with id: $id || $baseUrl?id=$id');
     try {
       final response = await http.delete(
-        Uri.parse('$baseUrl/landmarks/$id'),
+        Uri.parse('$baseUrl?id=$id'),
       );
 
       if (response.statusCode == 200 || response.statusCode == 204) {

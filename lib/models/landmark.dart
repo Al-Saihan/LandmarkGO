@@ -26,15 +26,39 @@ class Landmark {
     };
   }
 
-  // ? Create Landmark from JSON
-  factory Landmark.fromJson(Map<String, dynamic> json) {
+  // ? Create Landmark from JSON (null-safe and type-tolerant)
+  factory Landmark.fromJson(Map<String, dynamic> json, [String imageBase = '']) {
+    final dynamic rawTitle = json['title'];
+    final dynamic rawLat = json['lat'];
+    final dynamic rawLon = json['lon'];
+    final dynamic rawImage = json['image'];
+
+    String title = (rawTitle is String) ? rawTitle : rawTitle?.toString() ?? '';
+    double lat = _toDouble(rawLat);
+    double lon = _toDouble(rawLon);
+    String imagePath = (rawImage is String) ? rawImage : '';
+
+    if (imageBase.isNotEmpty && imagePath.isNotEmpty && !imagePath.startsWith('http')) {
+      imagePath = imageBase + imagePath;
+    }
+
     return Landmark(
-      id: json['id'] as int,
-      title: json['title'] as String,
-      lat: (json['lat'] as num).toDouble(),
-      lon: (json['lon'] as num).toDouble(),
-      image: json['image'] as String,
+      id: (json['id'] as num).toInt(),
+      title: title,
+      lat: lat,
+      lon: lon,
+      image: imagePath,
     );
+  }
+
+  static double _toDouble(dynamic v) {
+    if (v is double) return v;
+    if (v is int) return v.toDouble();
+    if (v is num) return v.toDouble();
+    if (v is String) {
+      return double.tryParse(v) ?? 0.0;
+    }
+    return 0.0;
   }
 
   // ? Create Landmark from JSON string
