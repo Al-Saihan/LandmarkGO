@@ -9,6 +9,30 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_native_splash: ^2.4.7
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  color: "#E7C1A5"
+  color_dark: "#E7C1A5"
+  image: assets/images/splash1152.png
+  branding: assets/images/brand800x320.png
+
+  android_gravity: center
+  ios_content_mode: center
+
+  android_12:
+    color: "#E7C1A5"
+    color_dark: "#E7C1A5"
+    icon_background_color: "#E7C1A5"
+    icon_background_color_dark: "#E7C1A5"
+    image: assets/images/splash1152.png
+    branding: assets/images/brand800x320.png
+
+
 
 dev_dependencies:
   flutter_test:
