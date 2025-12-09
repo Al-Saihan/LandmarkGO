@@ -2,6 +2,32 @@
 
 LandmarkGO is a cross‑platform Flutter app to manage geolocated landmarks with a clean, theme‑aware UI. It lets you add new landmarks with images, view them on an OpenStreetMap, and quickly edit or delete entries from list cards or directly from the map.
 
+
+## Table of Contents
+- [LandmarkGO](#landmarkgo)
+	- [Table of Contents](#table-of-contents)
+	- [Demo](#demo)
+	- [App Summary](#app-summary)
+	- [Features](#features)
+	- [Setup Instructions](#setup-instructions)
+		- [Prerequisites](#prerequisites)
+		- [Install Dependencies](#install-dependencies)
+		- [Platform Permissions](#platform-permissions)
+		- [Run the App](#run-the-app)
+	- [Known Limitations](#known-limitations)
+	- [Project Structure](#project-structure)
+	- [Screenshots](#screenshots)
+		- [Add Entry](#add-entry)
+		- [Edit Entry](#edit-entry)
+		- [Overview Map](#overview-map)
+		- [Marker Bottom Sheet](#marker-bottom-sheet)
+		- [Records Page (Dark)](#records-page-dark)
+		- [Records Page (Light)](#records-page-light)
+	- [License](#license)
+
+## Demo
+Watch the app in action on YouTube: [YouTube Demo](https://youtu.be/97kRx4TI6x0)
+
 ## App Summary
 - A simple, fast way to create and browse landmarks.
 - Theme toggle (light/dark) integrated across the app and map markers.
@@ -65,6 +91,7 @@ flutter run
 - **No pagination/caching:** Records list fetches all items; large datasets may impact performance.
 - **Offline support:** Map and API require connectivity; offline usage not implemented.
 - **Error handling:** Basic to keep UI responsive; consider adding richer retry/reporting flows.
+- **Map overview deletion refresh delay:** When deleting a landmark from the map overview bottom sheet, the UI sometimes takes a while to fully reflect the deletion. In some cases, the marker/list requires 2–3 manual refreshes or revisits to update. This is intermittent and under investigation.
 
 ---
 
