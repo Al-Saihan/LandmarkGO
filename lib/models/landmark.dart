@@ -43,7 +43,7 @@ class Landmark {
     }
 
     return Landmark(
-      id: (json['id'] as num).toInt(),
+      id: _toInt(json['id']),
       title: title,
       lat: lat,
       lon: lon,
@@ -59,6 +59,15 @@ class Landmark {
       return double.tryParse(v) ?? 0.0;
     }
     return 0.0;
+  }
+
+  static int _toInt(dynamic v) {
+    if (v is int) return v;
+    if (v is num) return v.toInt();
+    if (v is String) {
+      return int.tryParse(v) ?? 0;
+    }
+    return 0;
   }
 
   // ? Create Landmark from JSON string
