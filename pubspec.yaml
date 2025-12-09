@@ -15,6 +15,12 @@ dependencies:
   geolocator: ^10.1.0
   image: ^4.5.4
   http_parser: ^4.1.2
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
 
 flutter_native_splash:
   android: true
@@ -25,6 +31,7 @@ flutter_native_splash:
   color_dark: "#E7C1A5"
   image: assets/images/splash1152.png
   branding: assets/images/brand800x320.png
+  branding_bottom_padding: 300
 
   android_gravity: center
   ios_content_mode: center
@@ -36,6 +43,7 @@ flutter_native_splash:
     icon_background_color_dark: "#E7C1A5"
     image: assets/images/splash1152.png
     branding: assets/images/brand800x320.png
+    branding_bottom_padding: 300
 
 
 
