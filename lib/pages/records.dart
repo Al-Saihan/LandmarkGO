@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/landmark.dart';
 import '../services/api_service.dart';
 import '../includes/globals.dart';
+// import 'new_entry.dart';
 
 class RecordsPage extends StatefulWidget {
   const RecordsPage({super.key});
@@ -268,10 +269,104 @@ class _LandmarkCardState extends State<LandmarkCard> {
   }
 
   void _onEdit() {
-    // Placeholder for edit flow – navigate to edit screen or open dialog
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Edit action')));
+    if (mounted) {
+      _showQuickEditDialog();
+    }
+  }
+
+  Future<void> _showQuickEditDialog() async {
+    if (!mounted) return;
+
+    final titleController = TextEditingController(text: widget.landmark.title);
+    final latController = TextEditingController(text: widget.landmark.lat.toString());
+    final lonController = TextEditingController(text: widget.landmark.lon.toString());
+
+    final saved = await showDialog<bool>(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Edit Landmark'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: titleController,
+                  decoration: const InputDecoration(labelText: 'Title'),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: latController,
+                  decoration: const InputDecoration(labelText: 'Latitude'),
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: lonController,
+                  decoration: const InputDecoration(labelText: 'Longitude'),
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              child: const Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (saved == true && mounted) {
+      final newTitle = titleController.text.trim();
+      final newLat = double.tryParse(latController.text.trim());
+      final newLon = double.tryParse(lonController.text.trim());
+      if (newTitle.isEmpty || newLat == null || newLon == null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Please provide valid title, lat, and lon.')),
+          );
+        }
+        return;
+      }
+      try {
+        final ok = await ApiService.updateLandmarkForm(
+          id: widget.landmark.id,
+          title: newTitle,
+          lat: newLat,
+          lon: newLon,
+        );
+        if (mounted) {
+          if (ok) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Updated successfully')),
+            );
+            // Trigger parent refresh to reload landmarks from server
+            final recordsState = context.findAncestorStateOfType<_RecordsPageState>();
+            recordsState?._refreshLandmarks();
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Update failed')),
+            );
+          }
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error updating: $e')),
+          );
+        }
+      }
+    }
   }
 
   Widget _buildImageWidget() {
@@ -317,6 +412,8 @@ class _LandmarkCardState extends State<LandmarkCard> {
   }
 
   Future<bool> _confirmDelete(BuildContext context) async {
+    if (!mounted) return false;
+
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
