@@ -84,25 +84,25 @@ Proprietary. All rights reserved.
 ## Screenshots
 
 ### Add Entry
-<img src="readMeAssets/addEntry.jpg" alt="Add Entry" width="700" />
+<img src="readMeAssets/addEntry.jpg" alt="Add Entry" width="400" />
 Shows the form to create a landmark with title, latitude, longitude, and an image. GPS can auto‑fill coordinates in Add mode.
 
 ### Edit Entry
-<img src="readMeAssets/editEntry.jpg" alt="Edit Entry" width="700" />
+<img src="readMeAssets/editEntry.jpg" alt="Edit Entry" width="400" />
 Displays the edit flow where you can update title/lat/lon. Image change is disabled in Edit mode by design.
 
 ### Overview Map
-<img src="readMeAssets/mapOverView.jpg" alt="Overview Map" width="700" />
+<img src="readMeAssets/mapOverView.jpg" alt="Overview Map" width="400" />
 OpenStreetMap view centered and zoomed in on your region with large theme‑colored markers.
 
 ### Marker Bottom Sheet
-<img src="readMeAssets/mapOverViewClicked.jpg" alt="Marker Bottom Sheet" width="700" />
+<img src="readMeAssets/mapOverViewClicked.jpg" alt="Marker Bottom Sheet" width="400" />
 Appears when a marker is tapped. Left: image preview. Right: title, coordinates, and quick Edit/Delete actions.
 
 ### Records Page (Dark)
-<img src="readMeAssets/recordsPageDark.jpg" alt="Records Page Dark" width="700" />
+<img src="readMeAssets/recordsPageDark.jpg" alt="Records Page Dark" width="400" />
 List of landmarks with swipe actions (Edit/Delete) rendered in dark theme.
 
 ### Records Page (Light)
-<img src="readMeAssets/recordsPageLight.jpg" alt="Records Page Light" width="700" />
+<img src="readMeAssets/recordsPageLight.jpg" alt="Records Page Light" width="400" />
 Same list and interactions rendered in light theme.
