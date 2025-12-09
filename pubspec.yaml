@@ -16,6 +16,7 @@ dependencies:
   image: ^4.5.4
   http_parser: ^4.1.2
   flutter_launcher_icons: ^0.13.1
+  flutter_osm_plugin: ^1.4.3
 
 flutter_launcher_icons:
   android: true
