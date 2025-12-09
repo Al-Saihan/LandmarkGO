@@ -9,6 +9,8 @@ LandmarkGO is a cross‑platform Flutter app to manage geolocated landmarks with
 - Records list with swipe actions for quick edit/delete.
 - Add/Edit forms with validation, GPS autofill, and simple image handling.
 
+---
+
 ## Features
 - **Bottom Navigation:** Switch between `Overview`, `Records`, and `New Entry`.
 - **Theme Toggle:** Global light/dark theme via `globals.dart` with reactive colors.
@@ -25,6 +27,8 @@ LandmarkGO is a cross‑platform Flutter app to manage geolocated landmarks with
 	- GPS autofills lat/lon when adding.
 	- Edit mode updates metadata only (title/lat/lon) and previews existing image.
 - **Robust Parsing:** Landmark model handles numeric values coming as strings or numbers; null images are safely handled.
+
+---
 
 ## Setup Instructions
 
@@ -53,12 +57,16 @@ flutter pub get
 flutter run
 ```
 
+---
+
 ## Known Limitations
 - **Image change in Edit:** Editing does not change the existing image (by design); only title/lat/lon are updated.
 - **Marker matching:** Marker tap resolves landmarks by lat/lon precision; extremely close points may collide.
 - **No pagination/caching:** Records list fetches all items; large datasets may impact performance.
 - **Offline support:** Map and API require connectivity; offline usage not implemented.
 - **Error handling:** Basic to keep UI responsive; consider adding richer retry/reporting flows.
+
+---
 
 ## Project Structure
 ```
@@ -78,8 +86,8 @@ lib/
 		api_service.dart
 ```
 
-## License
-Proprietary. All rights reserved.
+---
+
 
 ## Screenshots
 
@@ -87,22 +95,37 @@ Proprietary. All rights reserved.
 <img src="readMeAssets/addEntry.jpg" alt="Add Entry" width="400" />
 Shows the form to create a landmark with title, latitude, longitude, and an image. GPS can auto‑fill coordinates in Add mode.
 
+---
+
 ### Edit Entry
 <img src="readMeAssets/editEntry.jpg" alt="Edit Entry" width="400" />
 Displays the edit flow where you can update title/lat/lon. Image change is disabled in Edit mode by design.
+
+---
 
 ### Overview Map
 <img src="readMeAssets/mapOverView.jpg" alt="Overview Map" width="400" />
 OpenStreetMap view centered and zoomed in on your region with large theme‑colored markers.
 
+---
+
 ### Marker Bottom Sheet
 <img src="readMeAssets/mapOverViewClicked.jpg" alt="Marker Bottom Sheet" width="400" />
 Appears when a marker is tapped. Left: image preview. Right: title, coordinates, and quick Edit/Delete actions.
+
+---
 
 ### Records Page (Dark)
 <img src="readMeAssets/recordsPageDark.jpg" alt="Records Page Dark" width="400" />
 List of landmarks with swipe actions (Edit/Delete) rendered in dark theme.
 
+---
+
 ### Records Page (Light)
 <img src="readMeAssets/recordsPageLight.jpg" alt="Records Page Light" width="400" />
 Same list and interactions rendered in light theme.
+
+---
+
+## License
+Proprietary. All rights reserved.
